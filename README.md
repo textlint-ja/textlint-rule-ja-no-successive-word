@@ -2,6 +2,10 @@
 
 同一の単語を間違えて連続しているのを見つけるtextlintルール
 
+> これはは問題ある文章です。
+
+**は**が連続している問題がある。
+
 ## Install
 
 Install with [npm](https://www.npmjs.com/):
