@@ -15,7 +15,7 @@
     "src/",
     "lib/"
   ],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "同一の単語を間違えて連続しているのを見つけるtextlintルール",
   "main": "lib/textlint-rule-ja-no-successive-word.js",
   "directories": {
