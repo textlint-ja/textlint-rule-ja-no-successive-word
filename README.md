@@ -1,6 +1,6 @@
 # textlint-rule-ja-no-successive-word
 
-同一の単語を間違えて連続しているのを見つけるtextlintルール
+同一の単語（厳密には形態素解析した結果のToken）が連続しているのを見つけるtextlintルール
 
 > これはは問題ある文章です。
 
