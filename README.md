@@ -1,10 +1,27 @@
 # textlint-rule-ja-no-successive-word
 
 同一の単語（厳密には形態素解析した結果のToken）が連続しているのを見つけるtextlintルール
+入力ミスによる同じ単語が連続している問題を発見します。
 
-> これはは問題ある文章です。
 
-**は**が連続している問題がある。
+**OK**:
+
+```
+これは問題ない文章です。
+すもももももももものうち
+111回目の問題
+フレームレートが落ちて動作がカクカクしてきた
+```
+
+**NG**:
+
+```
+これはは問題ある文章です。
+これは問題あるある文章です
+```
+
+- **は**が連続している
+- **ある**が連続している
 
 ## Install
 
@@ -30,6 +47,27 @@ Via CLI
 textlint --rule ja-no-successive-word README.md
 ```
 
+## Options
+
+オプションのデフォルト値
+
+```json5
+{
+    "rules": {
+        "ja-no-successive-word": {
+            // オノマトペを許可する
+            // 制限: オノマトペを判定する方法がないため、同じカタカナの語が連続したものをオノマトペとして扱う
+            // 例) カクカク、ドキドキ、ビリビリ
+            // https://ja.wikipedia.org/wiki/%E6%93%AC%E5%A3%B0%E8%AA%9E
+            allowOnomatopee: true
+        }
+    }
+}
+```
+
+-`allowOnomatopee: boolean` 
+    - Default: `true`
+    - **カクカク**などの[オノマトペ](https://ja.wikipedia.org/wiki/%E6%93%AC%E5%A3%B0%E8%AA%9E)を許可するかのオプションです。
 
 ## Changelog
 
