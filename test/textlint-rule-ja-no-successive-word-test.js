@@ -9,6 +9,7 @@ tester.run("ja-no-successive-word", rule, {
         "すもももももももものうち",
         "111回目の問題",
         "11,11回目の問題",
+        "フレームレートが落ちて動作がカクカクしてきた"
     ],
     invalid: [
         // single match
@@ -37,6 +38,19 @@ tester.run("ja-no-successive-word", rule, {
                     message: `"ある" が連続して2回使われています。`,
                     line: 3,
                     column: 8
+                }
+            ]
+        },
+        {
+            text: "フレームレートが落ちて動作がカクカクしてきた",
+            options: {
+                allowOnomatopee: false
+            },
+            errors: [
+                {
+                    message: `"カク" が連続して2回使われています。`,
+                    line: 1,
+                    column: 17
                 }
             ]
         }
