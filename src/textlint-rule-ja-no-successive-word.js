@@ -1,7 +1,6 @@
 // LICENSE : MIT
 "use strict";
-import {matchPatterns} from "@textlint/regexp-string-matcher";
-
+const matchPatterns = require("@textlint/regexp-string-matcher").matchPatterns;
 const tokenize = require("kuromojin").tokenize;
 const DefaultOptions = {
     // オノマトペを許可する
