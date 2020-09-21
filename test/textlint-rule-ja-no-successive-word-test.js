@@ -9,7 +9,13 @@ tester.run("ja-no-successive-word", rule, {
         "すもももももももものうち",
         "111回目の問題",
         "11,11回目の問題",
-        "フレームレートが落ちて動作がカクカクしてきた"
+        "フレームレートが落ちて動作がカクカクしてきた",
+        {
+            text: "＿人人人人人人＿",
+            options: {
+                allow: ["人人"]
+            }
+        }
     ],
     invalid: [
         // single match
@@ -52,6 +58,22 @@ tester.run("ja-no-successive-word", rule, {
                     line: 1,
                     column: 17
                 }
+            ]
+        },
+        {
+            text: "＿人人人人人人＿",
+            errors: [
+                {
+                    message: "\"人人\" が連続して2回使われています。",
+                    line: 1,
+                    column: 4
+                },
+                {
+                    message: "\"人人\" が連続して2回使われています。",
+                    line: 1,
+                    column: 6
+                }
+
             ]
         }
     ]

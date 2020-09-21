@@ -59,7 +59,11 @@ textlint --rule ja-no-successive-word README.md
             // 制限: オノマトペを判定する方法がないため、同じカタカナの語が連続したものをオノマトペとして扱う
             // 例) カクカク、ドキドキ、ビリビリ
             // https://ja.wikipedia.org/wiki/%E6%93%AC%E5%A3%B0%E8%AA%9E
-            allowOnomatopee: true
+            allowOnomatopee: true,
+            
+            // 許可する単語
+            // RegExp-like Stringを使用可能
+             allow: []
         }
     }
 }
@@ -68,6 +72,10 @@ textlint --rule ja-no-successive-word README.md
 -`allowOnomatopee: boolean` 
     - Default: `true`
     - **カクカク**などの[オノマトペ](https://ja.wikipedia.org/wiki/%E6%93%AC%E5%A3%B0%E8%AA%9E)を許可するかのオプションです。
+- `allow`: `string[]`
+    - Default: `[]`
+    - 許可する単語を指定するオプションです。
+    - [RegExp-like String](https://github.com/textlint/textlint-filter-rule-allowlist#regexp-like-string)を使用できます。
 
 ## Changelog
 
