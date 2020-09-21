@@ -63,13 +63,13 @@ textlint --rule ja-no-successive-word README.md
             
             // 許可する単語
             // RegExp-like Stringを使用可能
-             allow: []
+            allow: []
         }
     }
 }
 ```
 
--`allowOnomatopee: boolean` 
+- `allowOnomatopee: boolean` 
     - Default: `true`
     - **カクカク**などの[オノマトペ](https://ja.wikipedia.org/wiki/%E6%93%AC%E5%A3%B0%E8%AA%9E)を許可するかのオプションです。
 - `allow`: `string[]`
