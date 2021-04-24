@@ -1,7 +1,8 @@
-const TextLintTester = require("textlint-tester");
-const tester = new TextLintTester();
-// rule
+import TextLintTester from "textlint-tester";
 import rule from "../src/textlint-rule-ja-no-successive-word";
+
+const tester = new TextLintTester();
+
 // ruleName, rule, { valid, invalid }
 tester.run("ja-no-successive-word", rule, {
     valid: [

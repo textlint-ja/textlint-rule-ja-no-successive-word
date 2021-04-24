@@ -1,7 +1,8 @@
 // LICENSE : MIT
 "use strict";
-const matchPatterns = require("@textlint/regexp-string-matcher").matchPatterns;
-const tokenize = require("kuromojin").tokenize;
+import { matchPatterns } from "@textlint/regexp-string-matcher";
+import { tokenize } from "kuromojin";
+
 const DefaultOptions = {
     // オノマトペを許可する
     // 制限: オノマトペを判定する方法がないため、同じカタカナの語が連続したものをオノマトペとして扱う
@@ -18,7 +19,7 @@ function isOnomatopee(str) {
     return /^[ァ-ロワヲンー]*$/.test(str);
 }
 
-module.exports = function(context, options = {}) {
+export default function(context, options = {}) {
     const allowOnomatopee = options.allowOnomatopee !== undefined ? options.allowOnomatopee
                                                                   : DefaultOptions.allowOnomatopee;
     const allow = options.allow || DefaultOptions.allow;
