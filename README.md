@@ -1,4 +1,4 @@
-# textlint-rule-ja-no-successive-word
+# textlint-rule-ja-no-successive-word [![Actions Status: test](https://github.com/textlint-ja/textlint-rule-ja-no-successive-word/workflows/test/badge.svg)](https://github.com/textlint-ja/textlint-rule-ja-no-successive-word/actions?query=workflow%3A"test")
 
 同一の単語（厳密には形態素解析した結果のToken）が間違えて連続しているのを見つけるtextlintルール。
 入力ミスによる同じ単語が連続している問題を発見します。
