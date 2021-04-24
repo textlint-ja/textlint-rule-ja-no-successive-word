@@ -37,6 +37,6 @@
   },
   "dependencies": {
     "@textlint/regexp-string-matcher": "^1.1.0",
-    "kuromojin": "^2.0.0"
+    "kuromojin": "^3.0.0"
   }
 }
