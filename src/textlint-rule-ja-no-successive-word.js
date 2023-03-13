@@ -9,7 +9,7 @@ const DefaultOptions = {
     // 例) カクカク、ドキドキ、ビリビリ
     // https://ja.wikipedia.org/wiki/%E6%93%AC%E5%A3%B0%E8%AA%9E
     allowOnomatopee: true,
-
+    
     // 許可する単語
     // RegExp-like Stringを使用可能
     allow: []
@@ -19,9 +19,19 @@ function isOnomatopee(str) {
     return /^[ァ-ロワヲンー]*$/.test(str);
 }
 
-export default function(context, options = {}) {
+/**
+ * 漢数字かどうかを判定する
+ * https://azu.github.io/morpheme-match/?text=%E5%80%A4%E3%81%AF%E4%B9%9D%E4%B9%9D%E3%81%A7%E3%81%99%E3%80%82
+ * @param {import("kuromojin").KuromojiToken} token
+ * @returns {boolean}
+ */
+function isNumberToken(token) {
+    return token.pos === "名詞" && token.pos_detail_1 === "数";
+}
+
+export default function (context, options = {}) {
     const allowOnomatopee = options.allowOnomatopee !== undefined ? options.allowOnomatopee
-                                                                  : DefaultOptions.allowOnomatopee;
+        : DefaultOptions.allowOnomatopee;
     const allow = options.allow || DefaultOptions.allow;
     const { Syntax, RuleError, report, getSource } = context;
     return {
@@ -36,6 +46,12 @@ export default function(context, options = {}) {
                         return;
                     }
                     if (prevWord !== currentWord) {
+                        return;
+                    }
+                    // 漢数字は例外とする
+                    // 例) 値は"九九"です。
+                    // https://azu.github.io/morpheme-match/?text=%E5%80%A4%E3%81%AF%E4%B9%9D%E4%B9%9D%E3%81%A7%E3%81%99%E3%80%82
+                    if (isNumberToken(prevToken) && isNumberToken(nextToken)) {
                         return;
                     }
                     if (allowOnomatopee && isOnomatopee(prevWord) && isOnomatopee(currentWord)) {
