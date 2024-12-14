@@ -33,7 +33,7 @@
     "textlintrule"
   ],
   "devDependencies": {
-    "textlint-scripts": "^12.6.1"
+    "textlint-scripts": "^13.4.1"
   },
   "dependencies": {
     "@textlint/regexp-string-matcher": "^1.1.0",
