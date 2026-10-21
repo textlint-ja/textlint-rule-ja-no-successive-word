@@ -13,6 +13,14 @@ tester.run("ja-no-successive-word", rule, {
         "九九回目の問題",
         "11,11回目の問題",
         "フレームレートが落ちて動作がカクカクしてきた",
+        // 記号や空白の連続は対象外
+        // https://github.com/textlint-ja/textlint-rule-ja-no-successive-word/issues/8
+        "うーん……。",
+        "すごい！！",
+        "本当？？",
+        "これは　　問題ない文章です。",
+        "○○する",
+        "そうなんだｗｗ",
         {
             text: "＿人人人人人人＿",
             options: {
@@ -77,6 +85,17 @@ tester.run("ja-no-successive-word", rule, {
                     column: 6
                 }
 
+            ]
+        },
+        // ひらがな・カタカナ・漢字を含む単語は引き続き対象
+        {
+            text: "ＴシャツＴシャツを買った",
+            errors: [
+                {
+                    message: `"Ｔシャツ" が連続して2回使われています。`,
+                    line: 1,
+                    column: 5
+                }
             ]
         }
     ]

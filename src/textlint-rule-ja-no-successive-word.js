@@ -29,6 +29,22 @@ function isNumberToken(token) {
     return token.pos === "名詞" && token.pos_detail_1 === "数";
 }
 
+// ひらがな、カタカナ（半角カタカナを含む）、漢字
+// https://github.com/textlint-ja/textlint-rule-preset-JTF-style/blob/465497735666ad303d5d801fe01041b1c43351a6/src/util/regexp.js#L3
+const japaneseRegExp = /(?:[々〇〻\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]|[\uD840-\uD87F][\uDC00-\uDFFF]|[ぁ-んァ-ヶ\uFF66-\uFF9F])/;
+
+/**
+ * ひらがな、カタカナ、漢字のいずれかを含む単語かどうかを判定する
+ * 記号や空白、アルファベットだけの単語は対象外とする
+ * 例) "……"、"！！"、"　　"
+ * https://github.com/textlint-ja/textlint-rule-ja-no-successive-word/issues/8
+ * @param {string} word
+ * @returns {boolean}
+ */
+function isJapaneseWord(word) {
+    return japaneseRegExp.test(word);
+}
+
 export default function (context, options = {}) {
     const allowOnomatopee = options.allowOnomatopee !== undefined ? options.allowOnomatopee
         : DefaultOptions.allowOnomatopee;
@@ -46,6 +62,10 @@ export default function (context, options = {}) {
                         return;
                     }
                     if (prevWord !== currentWord) {
+                        return;
+                    }
+                    // 記号や空白の連続は例外とする
+                    if (!isJapaneseWord(currentWord)) {
                         return;
                     }
                     // 漢数字は例外とする
