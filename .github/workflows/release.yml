@@ -63,11 +63,17 @@ jobs:
         if: steps.tag-check.outputs.exists == 'false'
         run: yarn install --frozen-lockfile
 
-      # `prepublish` script builds lib/ before publishing
-      # Provenance is generated automatically with trusted publishing
-      - name: Publish to npm with provenance
+      # npm 7+ does not run `prepublish` on publish, so build lib/ explicitly
+      - name: Build
         if: steps.tag-check.outputs.exists == 'false'
-        run: npm publish --access public
+        run: yarn run build
+
+      # Stage the package on npm. A maintainer approves it with 2FA to publish it.
+      # https://docs.npmjs.com/staged-publishing
+      # Requires npm 11.15.0+ (bundled with Node.js 24)
+      - name: Stage publish to npm
+        if: steps.tag-check.outputs.exists == 'false'
+        run: npm stage publish --access public
 
       - name: Create GitHub Release with tag
         id: create-release
@@ -99,7 +105,9 @@ jobs:
         run: |
           gh pr comment "$PR_NUMBER" \
             --repo "$REPOSITORY" \
-            --body "✅ **Release v$VERSION completed successfully!**
+            --body "✅ **Release v$VERSION is staged on npm!**
+
+          Approve it with 2FA to publish: https://www.npmjs.com/package/$PACKAGE_NAME (Staged Packages tab) or \`npm stage approve <stage-id>\`
 
           - 📦 npm package: https://www.npmjs.com/package/$PACKAGE_NAME/v/$VERSION
           - 🏷️ GitHub Release: $RELEASE_URL
