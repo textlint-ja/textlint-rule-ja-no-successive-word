@@ -64,9 +64,10 @@ jobs:
         run: yarn install --frozen-lockfile
 
       # `prepublish` script builds lib/ before publishing
+      # Provenance is generated automatically with trusted publishing
       - name: Publish to npm with provenance
         if: steps.tag-check.outputs.exists == 'false'
-        run: npm publish --provenance --access public
+        run: npm publish --access public
 
       - name: Create GitHub Release with tag
         id: create-release
