@@ -13,6 +13,25 @@ tester.run("ja-no-successive-word", rule, {
         "九九回目の問題",
         "11,11回目の問題",
         "フレームレートが落ちて動作がカクカクしてきた",
+        // https://github.com/textlint-ja/textlint-rule-ja-no-successive-word/issues/8
+        ...["うーん……。", "すごい！！", "本当？？", "○○する"].map(text => ({
+            text,
+            options: {
+                allowSymbol: true
+            }
+        })),
+        {
+            text: "これは　　問題ない文章です。",
+            options: {
+                allowSpace: true
+            }
+        },
+        {
+            text: "そうなんだｗｗ",
+            options: {
+                allow: ["ｗ"]
+            }
+        },
         {
             text: "＿人人人人人人＿",
             options: {
@@ -77,6 +96,33 @@ tester.run("ja-no-successive-word", rule, {
                     column: 6
                 }
 
+            ]
+        },
+        // 記号や空白の連続はデフォルトでは報告する
+        // https://github.com/textlint-ja/textlint-rule-ja-no-successive-word/issues/8
+        ...[
+            ["すごい！！", "！"],
+            ["○○する", "○"],
+            ["これは　　問題ない文章です。", "　"],
+            ["そうなんだｗｗ", "ｗ"]
+        ].map(([text, word]) => ({
+            text,
+            errors: [
+                {
+                    message: `"${word}" が連続して2回使われています。`
+                }
+            ]
+        })),
+        // allowSymbol は空白の連続を許可しない
+        {
+            text: "これは　　問題ない文章です。",
+            options: {
+                allowSymbol: true
+            },
+            errors: [
+                {
+                    message: `"　" が連続して2回使われています。`
+                }
             ]
         }
     ]

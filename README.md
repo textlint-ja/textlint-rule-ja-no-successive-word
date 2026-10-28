@@ -60,6 +60,14 @@ textlint --rule ja-no-successive-word README.md
             // 例) カクカク、ドキドキ、ビリビリ
             // https://ja.wikipedia.org/wiki/%E6%93%AC%E5%A3%B0%E8%AA%9E
             allowOnomatopee: true,
+
+            // 記号の連続を許可する
+            // 例) "……"、"！！"、"？？"、"○○"
+            allowSymbol: false,
+
+            // 空白の連続を許可する
+            // 実質的には全角スペースの連続が対象（他の空白は連続しても1つのトークンになる）
+            allowSpace: false,
             
             // 許可する単語
             // RegExp-like Stringを使用可能
@@ -72,10 +80,18 @@ textlint --rule ja-no-successive-word README.md
 - `allowOnomatopee: boolean` 
     - Default: `true`
     - **カクカク**などの[オノマトペ](https://ja.wikipedia.org/wiki/%E6%93%AC%E5%A3%B0%E8%AA%9E)を許可するかのオプションです。
+- `allowSymbol: boolean`
+    - Default: `false`
+    - **……**、**！！**、**？？**、**○○**などの記号の連続を許可するかのオプションです。
+- `allowSpace: boolean`
+    - Default: `false`
+    - 空白の連続を許可するかのオプションです。
+    - 全角スペース以外の空白は連続しても1つの単語として扱われるため、実質的には全角スペースの連続が対象です。
 - `allow`: `string[]`
     - Default: `[]`
     - 許可する単語を指定するオプションです。
     - [RegExp-like String](https://github.com/textlint/textlint-filter-rule-allowlist#regexp-like-string)を使用できます。
+    - 例) **ｗｗ**を許可する場合は `allow: ["ｗ"]` を指定します。
 
 ## Changelog
 
